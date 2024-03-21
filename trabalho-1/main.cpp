@@ -1,10 +1,12 @@
+// Erika Borges Piaui - 10403716
+// Júlia Campolim de Oste - 10408802
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
 
-#define MAXN 50
-
+// Lê as dimensões da matriz no arquivo e salva nas variáveis n e m
 void getFileSize(int *n, int *m) {
     FILE* file = fopen("entrada.txt", "r");
 
@@ -21,6 +23,7 @@ void getFileSize(int *n, int *m) {
     fclose(file);
 }
 
+// Lê o conteúdo do arquivo e coloca cada char do labirinto em uma matriz
 void getFileContent(char** maze, int n, int m) {
     FILE* file = fopen("entrada.txt", "r");
 
@@ -43,6 +46,7 @@ void getFileContent(char** maze, int n, int m) {
     fclose(file);
 }
 
+// Exibe na tela a matriz que contém o labirinto
 void printMaze(char** maze, int n, int m) {
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < m; j++) {
@@ -53,6 +57,7 @@ void printMaze(char** maze, int n, int m) {
     printf("\n");
 }
 
+// Algoritmo backtracking que encontra o caminho para solucionar o labirinto
 bool findPath(char** maze, int n, int m, int i, int j) {
     if(maze[i][j] == 'S') {
         return true;

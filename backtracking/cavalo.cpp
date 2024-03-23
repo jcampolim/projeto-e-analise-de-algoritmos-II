@@ -5,24 +5,56 @@
 void printTabuleiro(int n, int tabuleiro[][MAXN]) {
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
-            printf("%d", tabuleiro[i][j]);
+            printf("%2d ", tabuleiro[i][j]);
         }
         printf("\n");
     }
     printf("\n");
 }
 
-void cavalo(int n, int tabuleiro[][MAXN], int line, int column, int i) {
-    if(n == n*n) {
+bool cavalo(int n, int tabuleiro[][MAXN], int line, int column, int i, int x[], int y[]) {
+    if(i == (n * n)) {
         printTabuleiro(n, tabuleiro);
+        return true;
     } else {
-        // 8 recursões
+        int l, c;
+        for(int k = 0; k < 8; k++) {
+            l = line + x[k];
+            c = column + y[k];
+
+            if((l >= 0 && l < n) && (c >= 0 && c < n)) {
+                if(tabuleiro[l][c] == 0) {
+                    i++;
+                    tabuleiro[l][c] = i;
+
+                    bool aux = cavalo(n, tabuleiro, l, c, i, x, y);
+                    if(aux) {
+                        return true;
+                    } else {
+                        tabuleiro[l][c] = 0;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
 
 int main() {
     int n = 8, tabuleiro[MAXN][MAXN];
-    cavalo(n, tabuleiro, 0, 0, 0);
+
+    int x[8] = { 2, 1, -1, -2, -2, -1, 1, 2 }; 
+    int y[8] = { 1, 2, 2, 1, -1, -2, -2, -1 };
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            tabuleiro[i][j] = 0;
+        }
+    }
+
+    tabuleiro[0][0] = 1;
+
+    cavalo(n, tabuleiro, 0, 0, 1, x, y);
 
     return 0;
 }

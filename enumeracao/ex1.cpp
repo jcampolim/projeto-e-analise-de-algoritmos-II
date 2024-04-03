@@ -12,8 +12,8 @@ bool verificaLexicograficamente(int r[], int s[], int tamR, int tamS) {
     }
 
     if(tamR > tamS) return false;
-        return true;
-    }
+    return true;
+}
 
 int main() {
     int r[] = {1, 3, 6}, s[] = {1, 3, 5, 7};

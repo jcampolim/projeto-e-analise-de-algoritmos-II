@@ -23,15 +23,14 @@ bool cavalo(int n, int tabuleiro[][MAXN], int line, int column, int i, int x[], 
             c = column + y[k];
 
             if((l >= 0 && l < n) && (c >= 0 && c < n)) {
-                if(tabuleiro[l][c] == 0) {
-                    i++;
+                if(tabuleiro[l][c] == -1) {
                     tabuleiro[l][c] = i;
 
-                    bool aux = cavalo(n, tabuleiro, l, c, i, x, y);
+                    bool aux = cavalo(n, tabuleiro, l, c, i + 1, x, y);
                     if(aux) {
                         return true;
                     } else {
-                        tabuleiro[l][c] = 0;
+                        tabuleiro[l][c] = -1;
                     }
                 }
             }
@@ -48,11 +47,11 @@ int main() {
 
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < n; j++) {
-            tabuleiro[i][j] = 0;
+            tabuleiro[i][j] = -1;
         }
     }
 
-    tabuleiro[0][0] = 1;
+    tabuleiro[0][0] = 0;
 
     cavalo(n, tabuleiro, 0, 0, 1, x, y);
 

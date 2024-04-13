@@ -18,7 +18,7 @@ void trocoBacktracking(int moedas[], int qtdeMoedas, int moedasTroco[], int troc
 }
 
 int main() {
-    int moedas[] = {1, 4, 6}, troco = 8;
+    int moedas[] = {2, 5, 6}, troco = 9;
     int qtdeMoedas = sizeof(moedas)/sizeof(moedas[0]);
 
     int moedasTroco[troco], melhor[troco];

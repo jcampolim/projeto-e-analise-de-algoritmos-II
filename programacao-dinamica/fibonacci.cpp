@@ -27,7 +27,7 @@ int bottomUp(int n, int tab[]) {
         tab[i] = tab[i - 1] + tab[i - 2];
     }
 
-    return tab[n - 1];
+    return tab[n];
 }
 
 int main() {

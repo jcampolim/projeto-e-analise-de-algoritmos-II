@@ -22,8 +22,33 @@ int recursivo(int p[], int m[][MAX], int i, int j) {
     return m[i][j];
 }
 
-int topDown(int p[], int m[][MAX], int s[][MAX], int n) {
-    
+int calcTopDown(int p[], int m[][MAX], int i, int j) {
+    if(m[i][j] < INF) {
+        return m[i][j];
+    } 
+
+    if(i == j) {
+        m[i][j] = 0;
+    } else {
+        for(int k = i; k < j; k++) {
+            int q = calcTopDown(p, m, i, k) + calcTopDown(p, m, k + 1, j) + (p[i - 1] * p[k] * p[j]);
+            if(q < m[i][j]) {
+                m[i][j] = q;
+            }
+        }
+    }
+    return m[i][j];
+}
+
+int topDown(int p[], int m[][MAX], int n) {
+    for(int i = 1; i <= n; i++) {
+        for(int j = 1; j <= n; j++) {
+            m[i][j] = INF;
+        }
+    } 
+
+    calcTopDown(p, m, 1, n);
+    return m[1][n - 1];
 }
 
 int bottomUp(int p[], int m[][MAX], int s[][MAX], int n) {
@@ -89,10 +114,11 @@ int maximizaOperacoes(int p[], int m[][MAX], int s[][MAX], int n) {
 int main() {
     int p[] = {30, 35, 15, 5, 10, 20};
     int n = sizeof(p)/sizeof(p[0]);
-    int m1[MAX][MAX], m2[MAX][MAX], s[MAX][MAX];
+    int m1[MAX][MAX], m2[MAX][MAX], m3[MAX][MAX], s[MAX][MAX];
 
     printf("Solucao recursiva: %d\n", recursivo(p, m1, 1, n - 1));
-    printf("Solucao programacao dinamica: %d\n", bottomUp(p, m2, s, n));
+    printf("Solucao top-down: %d\n", topDown(p, m2, n));
+    printf("Solucao bottom-up: %d\n", bottomUp(p, m3, s, n));
     imprimeParentesesOtimos(s, 1, n - 1);
     printf("\n");
     printf("Solucao com multiplicacoes maximizadas: %d\n", maximizaOperacoes(p, m2, s, n));
